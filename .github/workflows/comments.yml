@@ -1,0 +1,35 @@
+name: All_about_Comments
+on:
+  issues:
+    types: [opened]
+jobs:
+  comment_adding:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dumb Github Context
+        run: echo '${{ toJSON(github.event) }}' | jq
+        shell: bash
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            This is a multi-line test comment
+            - With GitHub **Markdown** :sparkles:
+            - Created by [create-or-update-comment][1]
+            [1]: https://github.com/peter-evans/create-or-update-comment
+          reactions: '+1'
+  creating_comments_with_api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment with API
+        run: |
+          gh api -X POST \
+          http://github.com/repo/${ORGANIZATION}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
+          -f  body='
+            This comment is sent by API call.'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PASSWORD }}
+          ORGANIZATION: ${{ github.event.organization.login }}
+          REPOSITORY: ${{ github.event.repository.name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
