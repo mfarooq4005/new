@@ -2,47 +2,60 @@
 # Dependencies
 node_modules/
 
-# Build outputs
+# Build artifacts
 dist/
 build/
-target/
+*.css.map
+*.js.map
 
 # Environment variables
 .env
 .env.local
-.env.*
+*.env.*
 
-# IDE files
+# Logs
+*.log
+
+# Editor/IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
 *.tmp
 
-# Logs
-*.log
+# OS files
+.DS_Store
+Thumbs.db
 
-# Python cache (if any Python files present)
+# Python specific
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.Python
+*.so
 
 # Coverage reports
 coverage/
 htmlcov/
 .coverage
 
-# Temporary files
-*.tmp
-*.temp
+# Testing
+.pytest_cache/
+.mypy_cache/
+.nyc_output/
+coverage/
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Distribution / packaging
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Vite specific
-!.vite/
-.vite/cache
-.vite/deps
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Local configuration
+.env.local
+.env.*.local
 ```
