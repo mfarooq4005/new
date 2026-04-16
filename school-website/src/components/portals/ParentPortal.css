@@ -1,0 +1,192 @@
+.parent-portal {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-secondary);
+}
+
+.parent-sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #059669 0%, #047857 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.child-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.child-selector label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.child-selector select {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.teacher-contacts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.teacher-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+}
+
+.teacher-card:hover {
+  background: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.teacher-avatar {
+  font-size: 2.5rem;
+}
+
+.teacher-info h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-primary);
+}
+
+.teacher-info p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.attendance-summary {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-xl);
+}
+
+.attendance-stat {
+  text-align: center;
+}
+
+.attendance-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.attendance-label {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.attendance-chart {
+  flex: 1;
+}
+
+.chart-bar {
+  height: 30px;
+  background: #e5e7eb;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+  border-radius: var(--radius-md);
+  transition: width 1s ease;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.message-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--primary-color);
+}
+
+.message-avatar {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.message-content {
+  flex: 1;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.message-header h4 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.message-date {
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.message-content p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .parent-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .child-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .attendance-summary {
+    flex-direction: column;
+  }
+
+  .teacher-contacts {
+    grid-template-columns: 1fr;
+  }
+}

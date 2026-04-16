@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import PortalLogin from './components/portals/PortalLogin'
+import TeacherPortal from './components/portals/TeacherPortal'
+import StudentPortal from './components/portals/StudentPortal'
+import ParentPortal from './components/portals/ParentPortal'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [currentView, setCurrentView] = useState('home')
+  const [selectedPortal, setSelectedPortal] = useState(null)
+  const [loggedInUser, setLoggedInUser] = useState(null)
   
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +19,49 @@ function App() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handlePortalSelect = (portalType) => {
+    setSelectedPortal(portalType)
+    setCurrentView('login')
+  }
+
+  const handleLogin = (user) => {
+    if (user) {
+      setLoggedInUser(user)
+      setCurrentView(user.type)
+    } else {
+      setSelectedPortal(null)
+      setCurrentView('home')
+      setLoggedInUser(null)
+    }
+  }
+
+  const handleLogout = () => {
+    setLoggedInUser(null)
+    setSelectedPortal(null)
+    setCurrentView('home')
+  }
+
+  // Render portal views
+  if (currentView === 'login' && selectedPortal) {
+    return <PortalLogin onLogin={handleLogin} portalType={selectedPortal} />
+  }
+
+  if (currentView === 'teacher' && loggedInUser) {
+    return <TeacherPortal user={loggedInUser} onLogout={handleLogout} />
+  }
+
+  if (currentView === 'student' && loggedInUser) {
+    return <StudentPortal user={loggedInUser} onLogout={handleLogout} />
+  }
+
+  if (currentView === 'parent' && loggedInUser) {
+    return <ParentPortal user={loggedInUser} onLogout={handleLogout} />
+  }
+
+  if (currentView === 'admin' && loggedInUser) {
+    return <TeacherPortal user={loggedInUser} onLogout={handleLogout} />
+  }
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -120,8 +170,14 @@ function App() {
                 <a href={link.href}>{link.name}</a>
               </li>
             ))}
-            <li>
-              <a href="#portal" className="btn btn-primary">Parent Portal</a>
+            <li className="portal-dropdown">
+              <button className="btn btn-primary" onClick={() => handlePortalSelect('parent')}>Portals</button>
+              <div className="dropdown-menu">
+                <a href="#" onClick={(e) => { e.preventDefault(); handlePortalSelect('teacher') }}>👨‍🏫 Teacher Portal</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handlePortalSelect('student') }}>👨‍🎓 Student Portal</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handlePortalSelect('parent') }}>👨‍👩‍👧 Parent Portal</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); handlePortalSelect('admin') }}>⚙️ Admin Dashboard</a>
+              </div>
             </li>
           </ul>
         </div>
